@@ -21,3 +21,6 @@ test-case-list:
   - name: leibniz_π
     args:
       - 100000000
+  - name: aes_gcm
+    args:
+      - 100000000

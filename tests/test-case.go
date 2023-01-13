@@ -23,6 +23,7 @@ const (
 	Factorial             = "factorial"
 	Trigonometry          = "trigonometry"
 	LeibnizPi             = "leibniz_π"
+	AesGcm                = "aes_gcm"
 )
 
 // TestCaseArgs represents arguments of test
@@ -88,6 +89,13 @@ func ParseTestCases(testList TestCases) (core.Tests, error) {
 			}
 
 			ts[i] = NewPiTest(n)
+		case AesGcm:
+			n, err := expectOneUint(tc.Args)
+			if err != nil {
+				return nil, err
+			}
+
+			ts[i] = NewAesGcmTest(n)
 		default:
 			return nil, errUnknownTestName
 		}
