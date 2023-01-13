@@ -3,7 +3,7 @@ package tests
 import (
 	"math/big"
 
-	"github.com/mymmrac/chipper/core"
+	"github.com/bingoohuang/chipper/core"
 )
 
 type fibonacciTest struct {

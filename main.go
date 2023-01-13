@@ -6,12 +6,11 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bingoohuang/chipper/core"
+	"github.com/bingoohuang/chipper/tests"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-
-	"github.com/mymmrac/chipper/core"
-	"github.com/mymmrac/chipper/tests"
 )
 
 //go:embed config.yaml
@@ -32,8 +31,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	rootCmd.Flags().BoolP("simple-mode", "s", false, "Enable simple mode")
-	if err := viper.BindPFlag("simple-mode", rootCmd.Flags().Lookup("simple-mode")); err != nil {
+	rootCmd.Flags().BoolP("pretty-ui", "p", false, "Enable pretty TUI")
+	if err := viper.BindPFlag("pretty-ui", rootCmd.Flags().Lookup("pretty-ui")); err != nil {
 		fmt.Printf("Failed to bind flag: %v\n", err)
 		os.Exit(1)
 	}
@@ -67,9 +66,7 @@ func run(_ *cobra.Command, _ []string) {
 		os.Exit(1)
 	}
 
-	if viper.GetBool("simple-mode") {
-		core.ExecuteTests(testList, progressReadInterval, &simpleTerminalExecutor{})
-	} else {
+	if viper.GetBool("pretty-ui") {
 		bubbleExecutor := newBubbleTeaExecutor(testList, progressReadInterval)
 		program := tea.NewProgram(bubbleExecutor)
 		bubbleExecutor.setProgram(program)
@@ -78,5 +75,8 @@ func run(_ *cobra.Command, _ []string) {
 			fmt.Printf("Failed to start bubble tea: %v", err)
 			os.Exit(1)
 		}
+		return
 	}
+
+	core.ExecuteTests(testList, progressReadInterval, &simpleTerminalExecutor{})
 }

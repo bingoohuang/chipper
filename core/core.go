@@ -25,6 +25,14 @@ type Test interface {
 // Tests represents slice of tests
 type Tests []Test
 
+type ProgressState int
+
+const (
+	ProgressStart ProgressState = iota
+	ProgressDoing
+	ProgressDone
+)
+
 // TestExecutor represents handler of test execution
 type TestExecutor interface {
 	// OnExecutionStart called before execution is started
@@ -37,7 +45,7 @@ type TestExecutor interface {
 	OnTestStart(name string, index int)
 
 	// OnTestProgress called every time progress updates
-	OnTestProgress(progress float64)
+	OnTestProgress(progress float64, state ProgressState)
 
 	// OnTestEnd called after test is ended
 	OnTestEnd(duration time.Duration)
@@ -55,18 +63,18 @@ func ExecuteTests(tests Tests, progressReadInterval time.Duration, executor Test
 
 		go t.Start()
 
-		executor.OnTestProgress(0)
+		executor.OnTestProgress(0, ProgressStart)
 
 		for !t.Done() {
 			if time.Since(testProgressTime) > progressReadInterval {
 				testProgressTime = time.Now()
 				progress := t.Progress()
 
-				executor.OnTestProgress(progress)
+				executor.OnTestProgress(progress, ProgressDoing)
 			}
 		}
 
-		executor.OnTestProgress(1)
+		executor.OnTestProgress(1, ProgressDone)
 		executor.OnTestEnd(time.Since(testStartTime))
 	}
 

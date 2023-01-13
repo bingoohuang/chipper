@@ -3,7 +3,7 @@ package tests
 import (
 	"math"
 
-	"github.com/mymmrac/chipper/core"
+	"github.com/bingoohuang/chipper/core"
 )
 
 type trigonometryTest struct {

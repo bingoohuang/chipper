@@ -5,12 +5,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/bingoohuang/chipper/core"
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/progress"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
-
-	"github.com/mymmrac/chipper/core"
 )
 
 type testContext struct {
@@ -203,7 +202,7 @@ func (b bubbleTeaExecutor) OnTestStart(name string, index int) {
 	})
 }
 
-func (b bubbleTeaExecutor) OnTestProgress(progress float64) {
+func (b bubbleTeaExecutor) OnTestProgress(progress float64, state core.ProgressState) {
 	b.program.Send(testProgress(progress))
 }
 

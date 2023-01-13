@@ -1,7 +1,7 @@
 # 👾 Chipper
 
-[![Chipper CI](https://github.com/mymmrac/chipper/actions/workflows/ci.yaml/badge.svg)](https://github.com/mymmrac/chipper/actions/workflows/ci.yaml)
-[![Go Report](https://goreportcard.com/badge/github.com/mymmrac/chipper)](https://goreportcard.com/report/github.com/mymmrac/chipper)
+[![Chipper CI](https://github.com/bingoohuang/chipper/actions/workflows/ci.yaml/badge.svg)](https://github.com/bingoohuang/chipper/actions/workflows/ci.yaml)
+[![Go Report](https://goreportcard.com/badge/github.com/bingoohuang/chipper)](https://goreportcard.com/report/github.com/bingoohuang/chipper)
 
 Chipper is a small tool for testing CPUs.
 
@@ -25,7 +25,7 @@ It runs multiple tests and measures execution time. Based on that time, you can 
 Install using `go install`
 
 ```shell
-go install github.com/mymmrac/chipper@latest
+go install github.com/bingoohuang/chipper@latest
 ```
 
 > Note: Make sure to add `$GOPATH/bin` to `$PATH`
@@ -36,7 +36,7 @@ Run
 chipper
 ```
 
-Or run in `simple-mode` without pretty TUI (maybe slightly faster)
+Or run in `pretty-ui` without pretty TUI (maybe slightly faster)
 
 ```shell
 chipper -s

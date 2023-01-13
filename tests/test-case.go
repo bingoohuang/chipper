@@ -6,7 +6,7 @@ package tests
 import (
 	"errors"
 
-	"github.com/mymmrac/chipper/core"
+	"github.com/bingoohuang/chipper/core"
 )
 
 var (
@@ -20,8 +20,9 @@ type testName string
 // Name of all available tests
 const (
 	Fibonacci    testName = "fibonacci"
-	Factorial    testName = "factorial"
-	Trigonometry testName = "trigonometry"
+	Factorial             = "factorial"
+	Trigonometry          = "trigonometry"
+	LeibnizPi             = "leibniz_π"
 )
 
 // TestCaseArgs represents arguments of test
@@ -80,6 +81,13 @@ func ParseTestCases(testList TestCases) (core.Tests, error) {
 			}
 
 			ts[i] = NewTrigonometryTest(n)
+		case LeibnizPi:
+			n, err := expectOneUint(tc.Args)
+			if err != nil {
+				return nil, err
+			}
+
+			ts[i] = NewPiTest(n)
 		default:
 			return nil, errUnknownTestName
 		}

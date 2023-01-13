@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 	"time"
+
+	"github.com/bingoohuang/chipper/core"
 )
 
 type simpleTerminalExecutor struct {
@@ -25,8 +27,8 @@ func (s *simpleTerminalExecutor) OnTestStart(name string, index int) {
 	s.currentTest = name
 }
 
-func (s *simpleTerminalExecutor) OnTestProgress(progress float64) {
-	if progress != 0 {
+func (s *simpleTerminalExecutor) OnTestProgress(progress float64, state core.ProgressState) {
+	if state != core.ProgressStart {
 		fmt.Print("\033[1A\r\033[K")
 	}
 	fmt.Printf("Progress: %s%%\n", strconv.FormatFloat(progress*100, 'f', 2, 64))
